@@ -1,0 +1,25 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Message Decoder</h1>
+    <p>This simple page lets you securely decrypt a message with a password.</p>
+    <textarea id="message" rows="6" cols="60"></textarea>
+    <br>
+    <script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/aes.js"></script>
+
+    <script>
+    window.onload = function (){
+          var hashFromUrl = window.location.search.substr(1);
+          console.log(hashFromUrl);
+          var password = prompt("Enter a password:");
+          console.log(password);
+          var decryptedMessage = "The message is: \n" + CryptoJS.AES.decrypt(hashFromUrl, password).toString(CryptoJS.enc.Utf8) + ".";
+          console.log("Verified: " + decryptedMessage);
+          document.getElementById("message").value = decryptedMessage;
+        };
+    </script>
+  </body>
+</html>
