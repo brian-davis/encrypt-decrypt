@@ -4,31 +4,52 @@
 }
 
 body {
-  background-color: #eee;
+  background-color: #2E5966;
   font-family: sans-serif;
   color: #333;
-  background-image: url('my-bg-4-blur.jpg');
+  /*background-image: url('my-bg-4-blur.jpg');*/
   background-size: cover;
 }
 
 .well {
   width: 40em;
   height: 20em;
-  /*margin-left: auto;*/
-  /*margin-right: auto;*/
-  margin: auto;
   border: 2px solid #333;
   border-radius: .25em;
   padding: 1em;
   background-color: lightBlue;
+}
+
+.absolute {
+  text-align: center;
+  margin: auto;
   position: absolute;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
-  text-align: center;
 }
 
 .well h1 {
   font-family: 'old_stamper';
+}
+
+.modal {
+  height: 4em;
+  width: 14em;
+  padding-top: 1em;
+  background-color: #6ACBEA;
+  border: 2px solid #333;
+  border-radius: .25em;
+  visibility: inherit;
+  z-index: 30;
+}
+
+.modal-wrapper {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(33, 33, 33, 0.6);
+  visibility: hidden;
+  display: block;
+  z-index: 20;
 }

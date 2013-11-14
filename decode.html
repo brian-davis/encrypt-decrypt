@@ -5,24 +5,45 @@
      <link rel="stylesheet" type="text/css" href="encryptor-style.css">
   </head>
   <body>
-    <div class="well">
+    <div class="well absolute">
     <h1>Message Decoder</h1>
-    <p>This simple page lets you securely decrypt a message with a password.</p>
     <textarea id="message" rows="6" cols="60"></textarea>
     <br>
   </div>
+ <!-- modal window -->
+  <div id="modal-wrapper" class="modal-wrapper absolute">
+    <div class="modal absolute" id="modal-prompt">
+      Enter a password: <input id="password-field" type="text" name="password">
+      <button id="enter" onclick="decoder.getPassword()">Enter</button>
+    </div>
+  </div>
+  <!-- /modal window -->
     <script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/aes.js"></script>
 
-    <script>
-    window.onload = function (){
-          var hashFromUrl = window.location.search.substr(1);
-          console.log(hashFromUrl);
-          var password = prompt("Enter a password:");
-          console.log(password);
-          var decryptedMessage = "The message is: \n" + CryptoJS.AES.decrypt(hashFromUrl, password).toString(CryptoJS.enc.Utf8) + ".";
-          console.log("Verified: " + decryptedMessage);
-          document.getElementById("message").value = decryptedMessage;
-        };
+    <script>//refactor
+
+    var decoder = {
+      promptPassword: function() {
+        document.getElementById("modal-wrapper").style.visibility="visible";
+      },
+      getPassword: function() {
+        this.password = document.getElementById("password-field").value;
+        document.getElementById("modal-wrapper").style.visibility="hidden";
+        this.getHashFromUrl();
+      },
+      getHashFromUrl: function() {
+        this.hashFromUrl = window.location.search.substr(1);//split('?')[1]
+        this.performDecryption();
+      },
+      performDecryption: function() {
+        this.decryptedMessage = "The message is: \n" + CryptoJS.AES.decrypt(this.hashFromUrl, this.password).toString(CryptoJS.enc.Utf8) + ".";
+        this.displayMessage();
+      },
+      displayMessage: function() {
+        document.getElementById("message").value = this.decryptedMessage;
+      }
+    };
+    window.onload = decoder.promptPassword();
     </script>
   </body>
 </html>

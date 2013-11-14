@@ -5,7 +5,7 @@
     <link rel="stylesheet" type="text/css" href="encryptor-style.css">
   </head>
   <body>
-    <div class="well">
+    <div class="well absolute">
     <h1>Message Encoder</h1>
     <p>This simple page lets you securely encrypt a message with a password. Your message will not leave your computer, and will not be sent over the Internet.</p>
     <p>Once it's encoded, you'll be able to share your message with anyone else who has the password.</p>
@@ -13,6 +13,16 @@
     <br>
     <button id="encrypt" onclick="encoder.protect()">Encrypt</button>
     </div>
+
+    <!-- modal window -->
+    <div id="modal-wrapper" class="modal-wrapper absolute">
+      <div class="modal absolute" id="modal-prompt">
+        Enter a password: <input id="password-field" type="text" name="password">
+        <button id="enter" onclick="encoder.getPassword()">Enter</button>
+      </div>
+    </div>
+    <!-- /modal window -->
+
     <script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/aes.js"></script>
 
     <script>
@@ -21,33 +31,40 @@
           this.message = document.getElementById("message").value;
         },
 
-        getPassword: function() {
-          this.password = prompt("enter a password");
+        promptPassword: function() {
+          // document.getElementById("modal-prompt").style.visibility='visible';
+          document.getElementById("modal-wrapper").style.visibility='visible';
+          // this.password = prompt("Enter a password");
+        },
+        getPassword: function () {
+          this.password = document.getElementById("password-field").value;
+          // document.getElementById("modal-prompt").style.visibility='hidden';
+          document.getElementById("modal-wrapper").style.visibility='hidden';
+          this.setUrl();
         },
         setUrl: function() {
-          console.log(this.message, this.password);
-          this.returnedCypher = this.encrypt();
-          console.log(this.returnedCypher);
-          var currentLocation = window.location.href;
-          this.newLocation = currentLocation.replace("index","decode") + "?" + this.returnedCypher;
-          console.log(this.newLocation);
+          // console.log(this.message, this.password);
+          var currentLocation = window.location.href;//or document.URL
+          this.newLocation = currentLocation.replace("index","decode") + "?" + this.encrypt();
+          // console.log(this.newLocation);
+          this.replaceMessageWithUrl();
         },
         replaceMessageWithUrl: function () {
-          document.getElementById("message").value = "Your encrypted message is available to anyone with the passphrase at: \n" + this.newLocation;
+          document.getElementById("message").value = "Your encrypted message is available to anyone with the passphrase at: \n\n" + this.newLocation;
         },
         encrypt: function() {
           cypher = CryptoJS.AES.encrypt(this.message, this.password)
-          console.log("Verified: " + CryptoJS.AES.decrypt(cypher, this.password).toString(CryptoJS.enc.Utf8))
-          console.log("Cypher: " + cypher)
+          // console.log("Verified: " + CryptoJS.AES.decrypt(cypher, this.password).toString(CryptoJS.enc.Utf8))
+          // console.log("Cypher: " + cypher)
           return cypher
         },
         protect: function() {
           this.setMessage();
-          this.getPassword();
-          this.setUrl();
-          this.replaceMessageWithUrl()
+          this.promptPassword();
+          // this.setUrl();
+          // this.replaceMessageWithUrl()
         }
-      }
+      }//see gist, try converting to module pattern with private methods.
     </script>
   </body>
 </html>
