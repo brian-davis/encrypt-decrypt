@@ -1,0 +1,24 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Decrypter</title>
+     <link rel="stylesheet" type="text/css" href="encryptor-style.css">
+  </head>
+  <body>
+    <div class="well absolute">
+      <h1>Message Decryptor</h1>
+      <textarea id="message" rows="6" cols="60"></textarea>
+      <br>
+    </div>
+    <!-- modal window -->
+    <div id="modal-wrapper" class="modal-wrapper absolute">
+      <div class="modal absolute" id="modal-prompt">
+        Enter a password: <input id="password-field" type="text" name="password">
+        <button id="enter" onclick="decoder.getPassword()">Enter</button>
+      </div>
+    </div>
+    <!-- /modal window -->
+    <script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/aes.js"></script>
+    <script src="src/decoder.js"></script>
+  </body>
+</html>
