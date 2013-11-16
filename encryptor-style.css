@@ -7,8 +7,6 @@ body {
   background-color: #2E5966;
   font-family: sans-serif;
   color: #333;
-  /*background-image: url('my-bg-4-blur.jpg');*/
-  background-size: cover;
 }
 
 .well {
@@ -18,6 +16,14 @@ body {
   border-radius: .25em;
   padding: 1em;
   background-color: lightBlue;
+  margin-left:auto;
+  margin-right:auto;
+  margin-top: auto; /*no effect*/
+  margin-bottom: auto; /*no effect*/
+}
+
+.well h1 {
+  font-family: 'old_stamper';
 }
 
 .absolute {
@@ -30,9 +36,15 @@ body {
   right: 0;
 }
 
-.well h1 {
-  font-family: 'old_stamper';
+.modal-wrapper {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(33, 33, 33, 0.6);
+  visibility: hidden;
+  display: block;
+  z-index: 20;
 }
+
 
 .modal {
   height: 4em;
@@ -45,11 +57,6 @@ body {
   z-index: 30;
 }
 
-.modal-wrapper {
-  width: 100%;
-  height: 100%;
-  background-color: rgba(33, 33, 33, 0.6);
-  visibility: hidden;
-  display: block;
-  z-index: 20;
-}
+
+
+

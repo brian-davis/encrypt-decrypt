@@ -1,5 +1,5 @@
 var encoder = {
-        setMessage: function() {
+        getMessage: function() {
           this.message = document.getElementById("message").value;
         },
         promptPassword: function() {
@@ -24,7 +24,9 @@ var encoder = {
           return cypher
         },
         protect: function() {
-          this.setMessage();
+          this.getMessage();
           this.promptPassword();
         }
-      }//see gist, try converting to module pattern with private methods.
+      }
+document.getElementById('encrypt').onclick = function(){encoder.promptPassword();};
+document.getElementById('enter').onclick = function(){encoder.getPassword();};
